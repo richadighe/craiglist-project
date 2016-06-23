@@ -156,3 +156,6 @@ $RECYCLE.BIN/
 hs_err_pid*
 
 test-output
+
+# screenshots
+screenshots/

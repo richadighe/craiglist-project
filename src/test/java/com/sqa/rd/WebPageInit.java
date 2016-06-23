@@ -1,7 +1,10 @@
 package com.sqa.rd;
 
+import java.io.*;
+import java.util.*;
 import java.util.concurrent.*;
 
+import org.apache.commons.io.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.*;
 import org.testng.annotations.*;
@@ -9,6 +12,20 @@ import org.testng.annotations.*;
 public class WebPageInit {
 	private static String baseURL = "http://www.google.com";
 	private static WebDriver driver;
+
+	public static void captureScreenshot(String keywords) {
+		// get screenshots of test
+		File src = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(src, new File("screenshots/" + keywords + "_" + new Date().getTime() + ".png"));
+		} catch (IOException e) {
+		}
+	}
+	// @DataProvider
+	// public Object[][] dp() {
+	// return new Object[][] { new Object[] { 1, "a" }, new Object[] { 2, "b" },
+	// };
+	// }
 
 	/**
 	 * @return the baseURL
@@ -31,15 +48,15 @@ public class WebPageInit {
 		driver.get(baseURL);
 	}
 
+	@AfterClass
+	public static void tearDown() {
+		driver.quit();
+	}
+
+	// constructor to initialize base URL
 	public WebPageInit(String baseURL) {
 		super();
 		WebPageInit.baseURL = baseURL;
 	}
-
-	// @DataProvider
-	// public Object[][] dp() {
-	// return new Object[][] { new Object[] { 1, "a" }, new Object[] { 2, "b" },
-	// };
-	// }
 
 }
