@@ -88,7 +88,8 @@ public class CraiglistTest extends WebPageInit {
 
 	@DataProvider
 	public Object[][] getExcelData() {
-		Object[][] data = DataHelper.getExcelFileData("src/main/resources/", "craiglisttest.xls", true);
+		System.out.println("test");
+		Object[][] data = DataHelper.getExcelFileData("src/main/resources/", "craiglisttest1.xlsx", true);
 		// DisplayHelper.multArray(data);
 		System.out.println("Reading excel data");
 		return data;

@@ -15,8 +15,8 @@ import java.sql.*;
 import java.util.*;
 import java.util.regex.*;
 
-import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.*;
 
 import com.sqa.rd.helpers.data.*;
 
@@ -99,24 +99,24 @@ public class DataHelper {
 			String fullFilePath = fileLocation + fileName;
 			/* Old Fileformat */
 			// Get the file using basic File and relative path to directory
-			InputStream oldExcelFormatFile = new FileInputStream(new File(fullFilePath));
-			// Get the workbook instance for XLS file or XML (Must use the
-			// HSSFWorkbook for old format
-			@SuppressWarnings("resource")
-			HSSFWorkbook workbook = new HSSFWorkbook(oldExcelFormatFile);
-			// Get first sheet from the workbook, HSSF for old format
-			HSSFSheet sheet = workbook.getSheetAt(0);
+			// InputStream oldExcelFormatFile = new FileInputStream(new
+			// File(fullFilePath));
+			// // Get the workbook instance for XLS file or XML (Must use the
+			// // HSSFWorkbook for old format
+			// @SuppressWarnings("resource")
+			// HSSFWorkbook workbook = new HSSFWorkbook(oldExcelFormatFile);
+			// // Get first sheet from the workbook, HSSF for old format
+			// HSSFSheet sheet = workbook.getSheetAt(0);
 
-			/*
-			 * New File format Get the file using basic File and relative path
-			 * to directory InputStream newExcelFormatFile = new
-			 * FileInputStream(new File(fullFilePath)); Get the workbook
-			 * instance for XLS file or XML (Must use the XSSFWorkbook workbook
-			 * = new XSSFWorkbook(newExcelFormatFile); not working ask jean
-			 * XSSFWorkbook workbook = new XSSFWorkbook(newExcelFormatFile); Get
-			 * first sheet from the workbook, HSSF for old format XSSFSheet
-			 * sheet = workbook.getSheetAt(0);
-			 */
+			// * New File format Get the file using basic File and relative path
+			// * to directory
+			InputStream newExcelFormatFile = new FileInputStream(new File(fullFilePath));
+			// *Get the workbook* instance for XLS file or XML (Must use the
+			XSSFWorkbook workbook = new XSSFWorkbook(newExcelFormatFile);
+			// Get first sheet from the workbook,
+			// HSSF for old format
+			XSSFSheet sheet = workbook.getSheetAt(0);
+
 			// Iterate through each rows from first sheet
 			Iterator<Row> rowIterator = sheet.iterator();
 
@@ -158,10 +158,10 @@ public class DataHelper {
 				System.out.println("");
 			}
 			// Close File Read Stream
-			oldExcelFormatFile.close();
+			// oldExcelFormatFile.close();
 
 			// // Close File Read Stream
-			// newExcelFormatFile.close();
+			newExcelFormatFile.close();
 
 			// Create an OutputStream to write
 			FileOutputStream out = new FileOutputStream(new File("src/main/resources/excel-output.xls"));
